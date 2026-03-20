@@ -2,23 +2,10 @@
   "name": "my-project",
   "version": "1.0.0",
   "type": "module",
-  "main": "index.js"
-}
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node T/server/server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/turgunorinov1522004-wq/my-project.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/turgunorinov1522004-wq/my-project/issues"
-  },
-  "homepage": "https://github.com/turgunorinov1522004-wq/my-project#readme",
   "dependencies": {
     "express": "^5.2.1"
   }
