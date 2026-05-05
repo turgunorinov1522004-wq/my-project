@@ -13,7 +13,7 @@
         <span class="logo-icon">&#9670;</span>
         <span class="logo-text">GenHub</span>
       </div>
-      <p class="header-tagline">Text · Image · Audio · Video — one platform</p>
+      <p class="header-tagline">Text · Image · Audio — one platform</p>
     </div>
   </header>
 
@@ -28,9 +28,6 @@
       </button>
       <button class="tab" role="tab" data-tab="audio" aria-selected="false">
         <span class="tab-icon">&#127925;</span> Audio
-      </button>
-      <button class="tab" role="tab" data-tab="video" aria-selected="false">
-        <span class="tab-icon">&#127916;</span> Video
       </button>
     </nav>
 
@@ -49,9 +46,9 @@
           <div class="form-group">
             <label for="text-model">Model</label>
             <select id="text-model">
-              <option>Claude Opus 4.6</option>
-              <option>Claude Sonnet 4.6</option>
               <option>Claude Haiku 4.5</option>
+              <option>Claude Sonnet 4.6</option>
+              <option>Claude Opus 4.7</option>
             </select>
           </div>
           <div class="form-group">
@@ -200,68 +197,6 @@
       </div>
     </section>
 
-    <!-- Video Generation -->
-    <section class="panel" id="panel-video" role="tabpanel">
-      <div class="panel-header">
-        <h2>Video Generation</h2>
-        <p>Turn prompts into short AI-generated video clips.</p>
-      </div>
-      <div class="panel-body">
-        <div class="form-group">
-          <label for="video-prompt">Prompt</label>
-          <textarea id="video-prompt" rows="3" placeholder="e.g. A lone astronaut walking on Mars, cinematic, slow motion..."></textarea>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="video-model">Model</label>
-            <select id="video-model">
-              <option>Sora</option>
-              <option>Runway Gen-3</option>
-              <option>Kling 1.6</option>
-              <option>Pika 2.0</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="video-duration">Duration</label>
-            <select id="video-duration">
-              <option>5 seconds</option>
-              <option>10 seconds</option>
-              <option>30 seconds</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="video-resolution">Resolution</label>
-            <select id="video-resolution">
-              <option>720p</option>
-              <option>1080p</option>
-              <option>4K</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="video-style">Visual Style</label>
-          <div class="style-chips" id="video-style">
-            <button class="chip active" type="button">Cinematic</button>
-            <button class="chip" type="button">Animated</button>
-            <button class="chip" type="button">Documentary</button>
-            <button class="chip" type="button">Timelapse</button>
-            <button class="chip" type="button">Slow Motion</button>
-          </div>
-        </div>
-        <button class="btn-generate" onclick="generate('video')">
-          <span class="btn-icon">&#9654;</span> Generate Video
-        </button>
-        <div class="output video-output" id="output-video">
-          <div class="output-placeholder">
-            <span class="placeholder-icon">&#127916;</span>
-            <span>Your generated video will appear here.</span>
-          </div>
-        </div>
-        <div class="output-actions hidden" id="actions-video">
-          <button class="btn-action" onclick="downloadOutput('video', 'mp4')">&#8595; Download .mp4</button>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer class="footer">

@@ -22,8 +22,15 @@ app.use(express.static(join(__dirname, '..'))); // serve the frontend
 
 /* ── Text Generation (Claude, streamed) ──────────────────────── */
 app.post('/api/text', async (req, res) => {
-  const { prompt, tone = 'Professional', length = 'Medium (~300 words)' } = req.body;
+  const { prompt, tone = 'Professional', length = 'Medium (~300 words)', model = 'Claude Haiku 4.5' } = req.body;
   if (!prompt?.trim()) return res.status(400).json({ error: 'Prompt is required' });
+
+  const modelMap = {
+    'Claude Opus 4.7':   'claude-opus-4-7',
+    'Claude Sonnet 4.6': 'claude-sonnet-4-6',
+    'Claude Haiku 4.5':  'claude-haiku-4-5-20251001',
+  };
+  const resolvedModel = modelMap[model] ?? 'claude-haiku-4-5-20251001';
 
   const lengthGuide = {
     'Short (~100 words)':  'Write a short response of approximately 100 words.',
@@ -41,7 +48,7 @@ app.post('/api/text', async (req, res) => {
 
   try {
     const stream = client.messages.stream({
-      model: 'claude-opus-4-6',
+      model: resolvedModel,
       max_tokens: 1500,
       system,
       messages: [{ role: 'user', content: prompt }],
