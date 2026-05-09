@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GenHub — AI Generation Platform</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">&#9670;</span>
+        <span class="logo-text">GenHub</span>
+      </div>
+      <p class="header-tagline">Text · Image · Audio — one platform</p>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Tab Navigation -->
+    <nav class="tabs" role="tablist">
+      <button class="tab active" role="tab" data-tab="text" aria-selected="true">
+        <span class="tab-icon">&#9998;</span> Text
+      </button>
+      <button class="tab" role="tab" data-tab="image" aria-selected="false">
+        <span class="tab-icon">&#128444;</span> Image
+      </button>
+      <button class="tab" role="tab" data-tab="audio" aria-selected="false">
+        <span class="tab-icon">&#127925;</span> Audio
+      </button>
+    </nav>
+
+    <!-- Text Generation -->
+    <section class="panel active" id="panel-text" role="tabpanel">
+      <div class="panel-header">
+        <h2>Text Generation</h2>
+        <p>Generate articles, stories, code, summaries, and more.</p>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label for="text-prompt">Prompt</label>
+          <textarea id="text-prompt" rows="4" placeholder="e.g. Write a short story about a robot learning to paint..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="text-model">Model</label>
+            <select id="text-model">
+              <option>Claude Haiku 4.5</option>
+              <option>Claude Sonnet 4.6</option>
+              <option>Claude Opus 4.7</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="text-tone">Tone</label>
+            <select id="text-tone">
+              <option>Professional</option>
+              <option>Casual</option>
+              <option>Creative</option>
+              <option>Technical</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="text-length">Length</label>
+            <select id="text-length">
+              <option>Short (~100 words)</option>
+              <option>Medium (~300 words)</option>
+              <option>Long (~800 words)</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-generate" onclick="generate('text')">
+          <span class="btn-icon">&#9654;</span> Generate Text
+        </button>
+        <div class="output" id="output-text">
+          <div class="output-placeholder">Your generated text will appear here.</div>
+        </div>
+        <div class="output-actions hidden" id="actions-text">
+          <button class="btn-action" onclick="copyOutput('text')">&#128203; Copy</button>
+          <button class="btn-action" onclick="downloadOutput('text', 'txt')">&#8595; Download .txt</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Image Generation -->
+    <section class="panel" id="panel-image" role="tabpanel">
+      <div class="panel-header">
+        <h2>Image Generation</h2>
+        <p>Create stunning visuals from a text description. <span style="color:var(--accent2);font-size:12px;">Powered by Pollinations AI (free)</span></p>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label for="image-prompt">Prompt</label>
+          <textarea id="image-prompt" rows="3" placeholder="e.g. A futuristic cityscape at sunset, cyberpunk style, ultra-detailed..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="image-negative">Negative Prompt <span class="optional">(optional)</span></label>
+          <input id="image-negative" type="text" placeholder="e.g. blurry, low quality, watermark..." />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="image-model">Model</label>
+            <select id="image-model">
+              <option>DALL-E 3</option>
+              <option>Stable Diffusion XL</option>
+              <option>Midjourney v6</option>
+              <option>Flux 1.1 Pro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="image-size">Size</label>
+            <select id="image-size">
+              <option>1024 × 1024</option>
+              <option>1792 × 1024 (Wide)</option>
+              <option>1024 × 1792 (Tall)</option>
+              <option>512 × 512</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="image-style">Style</label>
+            <select id="image-style">
+              <option>Photorealistic</option>
+              <option>Digital Art</option>
+              <option>Anime</option>
+              <option>Oil Painting</option>
+              <option>Sketch</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-generate" onclick="generate('image')">
+          <span class="btn-icon">&#9654;</span> Generate Image
+        </button>
+        <div class="output image-output" id="output-image">
+          <div class="output-placeholder image-placeholder">
+            <span class="placeholder-icon">&#128444;</span>
+            <span>Your generated image will appear here.</span>
+          </div>
+        </div>
+        <div class="output-actions hidden" id="actions-image">
+          <button class="btn-action" onclick="downloadOutput('image', 'png')">&#8595; Download .png</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Audio Generation -->
+    <section class="panel" id="panel-audio" role="tabpanel">
+      <div class="panel-header">
+        <h2>Text-to-Speech</h2>
+        <p>Convert your text to spoken audio using the browser's speech engine.</p>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label for="audio-prompt">Text</label>
+          <textarea id="audio-prompt" rows="3" placeholder="e.g. Hello, welcome to GenHub!"></textarea>
+        </div>
+        <button class="btn-generate" onclick="generate('audio')">
+          <span class="btn-icon">&#9654;</span> Speak
+        </button>
+        <div class="output audio-output" id="output-audio">
+          <div class="output-placeholder">
+            <span class="placeholder-icon">&#127925;</span>
+            <span>Your generated audio will appear here.</span>
+          </div>
+        </div>
+        <div class="output-actions hidden" id="actions-audio">
+          <button class="btn-action" onclick="downloadOutput('audio', 'mp3')">&#8595; Download .mp3</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2026 GenHub &mdash; All AI tools, one place.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
